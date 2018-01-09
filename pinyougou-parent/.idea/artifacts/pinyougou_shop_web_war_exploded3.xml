@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="pinyougou-shop-web:war exploded3">
+    <output-path>$PROJECT_DIR$/out/artifacts/pinyougou_shop_web_war_exploded3</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="pinyougou-shop-web/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="pinyougou-shop-web" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
