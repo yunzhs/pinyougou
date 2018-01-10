@@ -16,135 +16,236 @@
     <script type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
 
     <script type="text/javascript">
-        var app=angular.module("pinyougou",['pagination']);
-        app.controller('brandController',function ($scope,$http) {
-            $scope.findAll=function () {
+        var app = angular.module("pinyougou", ['pagination']);
+        app.controller('brandController', function ($scope, $http) {
+            /*$scope.findAll=function () {
                 $http.get('../brand/findAll.do').success(
                     function (response) {
                         $scope.list=response;
                     }
                 )
-            }
+            }*/
             //分页控件配置
             $scope.paginationConf = {
                 currentPage: 1,
                 totalItems: 10,
                 itemsPerPage: 10,
                 perPageOptions: [10, 20, 30, 40, 50],
-                onChange: function(){
+                onChange: function () {
                     $scope.reloadList();//重新加载
                 }
             };
-            $scope.reloadList=function () {
-                $scope.findPage($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+            $scope.reloadList = function () {
+                $scope.search($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
             }
 
             //分页
-            $scope.findPage=function (page,rows) {
-                $http.get('../brand/findPage.do?page='+page+"&rows="+rows).success(
+            $scope.findPage = function (page, rows) {
+                $http.get('../brand/findPage.do?page=' + page + "&rows=" + rows).success(
                     function (response) {
-                        $scope.list=response.rows;//品牌分页当前页数据
-                        $scope.paginationConf.totalItems=response.total;//接受总页数
+                        $scope.list = response.rows;//品牌分页当前页数据
+                        $scope.paginationConf.totalItems = response.total;//接受总页数
+                        //接受总页数
+                    }
+                )
+            };
+            $scope.entity = {};
+
+            //添加
+            $scope.add = function () {
+                $http.post("../brand/add.do", $scope.entity).success(
+                    function (response) {
+                        if (response.success) {
+                            alert(response.message)
+                            $scope.reloadList();
+                        }
+                        else {
+                            alert(response.message)
+                        }
+                    }
+                )
+            }
+            //根据id获得一个品牌对象
+            $scope.findOne = function (id) {
+                $http.get('../brand/findOne.do?id=' + id).success(
+                    function (response) {
+                        $scope.entity = response;//接收对象
+                    }
+                )
+            }
+            //品牌修改
+            $scope.update = function () {
+                $http.post('../brand/update.do', $scope.entity).success(
+                    function (response) {
+                        if (response.success) {
+                            alert(response.message)
+                            $scope.reloadList();
+                        }
+                        else {
+                            alert(response.message)
+                        }
+                    }
+                )
+            };
+            $scope.save = function () {
+                var methodName = "add.do";
+                if ($scope.entity.id !== null) {
+                    methodName = "update.do"
+                }
+                $http.post('../brand/' + methodName, $scope.entity).success(
+                    function (response) {
+                        if (response.success) {
+                            alert(response.message)
+                            $scope.reloadList();
+                        }
+                        else {
+                            alert(response.message)
+                        }
+                    });
+            };
+
+            $scope.selectIds = [];
+            $scope.updateSelection = function ($event, id) {
+                if ($event.target.checked) {
+                    $scope.selectIds.push(id);
+                }
+                else {//否则，移除值
+                    var index = $scope.selectIds.indexOf(id);
+                    //splice 参数1:对象在数组中的位置 参数2：移除的个数
+                    $scope.selectIds.splice(index, 1);
+                }
+
+            }
+            //批量删除品牌
+            $scope.dele = function () {
+                $http.get('../brand/delete.do?ids=' + $scope.selectIds).success(
+                    function (response) {
+                        if (response.success) {
+                            alert(response.message)
+                            $scope.reloadList();
+                            $scope.selectIds = [];
+                        }
+                        else {
+                            alert(response.message)
+                        }
+                    });
+
+            }
+            //条件分页查询
+            $scope.searchEntity = {};
+            $scope.search = function (page, rows) {
+                $http.post('../brand/search.do?page=' + page + "&&rows=" + rows, $scope.searchEntity).success(
+                    function (response) {
+                        $scope.list = response.rows;//品牌分页当前页数据
+                        $scope.paginationConf.totalItems = response.total;//接受总页数
                         //接受总页数
                     }
                 )
             }
+
         })
     </script>
-    
+
 </head>
-<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="brandController" ng-init="findAll()">
-  <!-- .box-body -->
-                    <div class="box-header with-border">
-                        <h3 class="box-title">品牌管理</h3>
-                    </div>
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="brandController">
+<!-- .box-body -->
+<div class="box-header with-border">
+    <h3 class="box-title">品牌管理</h3>
+</div>
 
-                    <div class="box-body">
+<div class="box-body">
 
-                        <!-- 数据表格 -->
-                        <div class="table-box">
+    <!-- 数据表格 -->
+    <div class="table-box">
 
-                            <!--工具栏-->
-                            <div class="pull-left">
-                                <div class="form-group form-inline">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>           
-                                        <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="box-tools pull-right">
-                                <div class="has-feedback">
-							                                         
-                                </div>
-                            </div>
-                            <!--工具栏/-->
+        <!--工具栏-->
+        <div class="pull-left">
+            <div class="form-group form-inline">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" title="新建" data-toggle="modal"
+                            data-target="#editModal" ng-click="entity={}"><i class="fa fa-file-o"></i> 新建
+                    </button>
+                    <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i
+                            class="fa fa-trash-o"></i> 删除
+                    </button>
+                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
+                            class="fa fa-refresh"></i> 刷新
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+                品牌名称:<input ng-model="searchEntity.name"/>
+                首字母:<input ng-model="searchEntity.firstChar"/>
+                <input type="button" value="查询" ng-click="reloadList()"/>
+            </div>
+        </div>
+        <!--工具栏/-->
 
-			                  <!--数据列表-->
-			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
-			                      <thead>
-			                          <tr>
-			                              <th class="" style="padding-right:0px">
-			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
-			                              </th> 
-										  <th class="sorting_asc">品牌ID</th>
-									      <th class="sorting">品牌名称</th>									      
-									      <th class="sorting">品牌首字母</th>									     				
-					                      <th class="text-center">操作</th>
-			                          </tr>
-			                      </thead>
-			                      <tbody>
-			                          <tr ng-repeat="entity in list">
-			                              <td><input  type="checkbox" ></td>			                              
-				                          <td>{{entity.id}}</td>
-									      <td>{{entity.name}}</td>
-		                                  <td>{{entity.firstChar}}</td>
-		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"  >修改</button>                                           
-		                                  </td>
-			                          </tr>
-			                      </tbody>
-			                  </table>
-			                  <!--数据列表/-->                        
-							  <tm-pagination conf="paginationConf"></tm-pagination>
-							 
-                        </div>
-                        <!-- 数据表格 /-->
-                        
-                        
-                        
-                        
-                     </div>
-                    <!-- /.box-body -->
-         
+        <!--数据列表-->
+        <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+            <thead>
+            <tr>
+                <th class="" style="padding-right:0px">
+                    <input id="selall" type="checkbox" class="icheckbox_square-blue">
+                </th>
+                <th class="sorting_asc">品牌ID</th>
+                <th class="sorting">品牌名称</th>
+                <th class="sorting">品牌首字母</th>
+                <th class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="entity in list">
+                <td><input type="checkbox" ng-click="updateSelection($event,entity.id)"></td>
+                <td>{{entity.id}}</td>
+                <td>{{entity.name}}</td>
+                <td>{{entity.firstChar}}</td>
+                <td class="text-center">
+                    <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"
+                            ng-click="findOne(entity.id)">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--数据列表/-->
+        <tm-pagination conf="paginationConf"></tm-pagination>
+    </div>
+    <!-- 数据表格 /-->
+
+
+</div>
+<!-- /.box-body -->
+
 <!-- 编辑窗口 -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" >
-	<div class="modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModalLabel">品牌编辑</h3>
-		</div>
-		<div class="modal-body">		
-			<table class="table table-bordered table-striped"  width="800px">
-		      	<tr>
-		      		<td>品牌名称</td>
-		      		<td><input  class="form-control" placeholder="品牌名称" >  </td>
-		      	</tr>		      	
-		      	<tr>
-		      		<td>首字母</td>
-		      		<td><input  class="form-control" placeholder="首字母">  </td>
-		      	</tr>		      	
-			 </table>				
-		</div>
-		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
-			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
-		</div>
-	  </div>
-	</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">品牌编辑</h3>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-striped" width="800px">
+                    <tr>
+                        <td>品牌名称</td>
+                        <td><input ng-model="entity.name" class="form-control" placeholder="品牌名称"></td>
+                    </tr>
+                    <tr>
+                        <td>首字母</td>
+                        <td><input ng-model="entity.firstChar" class="form-control" placeholder="首字母"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
 </div>
-   
+
 </body>
 </html>
