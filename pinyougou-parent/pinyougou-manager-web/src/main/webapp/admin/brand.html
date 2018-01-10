@@ -9,18 +9,43 @@
     <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../css/style.css">
-	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
-
     <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    <script type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
 
     <script type="text/javascript">
-        var app=angular.module("pinyougou",[]);
+        var app=angular.module("pinyougou",['pagination']);
         app.controller('brandController',function ($scope,$http) {
             $scope.findAll=function () {
                 $http.get('../brand/findAll.do').success(
                     function (response) {
                         $scope.list=response;
+                    }
+                )
+            }
+            //分页控件配置
+            $scope.paginationConf = {
+                currentPage: 1,
+                totalItems: 10,
+                itemsPerPage: 10,
+                perPageOptions: [10, 20, 30, 40, 50],
+                onChange: function(){
+                    $scope.reloadList();//重新加载
+                }
+            };
+            $scope.reloadList=function () {
+                $scope.findPage($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+            }
+
+            //分页
+            $scope.findPage=function (page,rows) {
+                $http.get('../brand/findPage.do?page='+page+"&rows="+rows).success(
+                    function (response) {
+                        $scope.list=response.rows;//品牌分页当前页数据
+                        $scope.paginationConf.totalItems=response.total;//接受总页数
+                        //接受总页数
                     }
                 )
             }
@@ -82,7 +107,7 @@
 			                      </tbody>
 			                  </table>
 			                  <!--数据列表/-->                        
-							  
+							  <tm-pagination conf="paginationConf"></tm-pagination>
 							 
                         </div>
                         <!-- 数据表格 /-->
