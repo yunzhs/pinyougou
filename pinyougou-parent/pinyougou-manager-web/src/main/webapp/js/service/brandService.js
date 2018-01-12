@@ -22,4 +22,8 @@ app.service('brandService', function ($http) {
 
         return $http.post('../brand/search.do?page=' + page + "&&rows=" + rows, searchEntity);
     }
+    //下拉列表数据
+    this.selectOptionList=function(){
+        return $http.get('../brand/selectOptionList.do');
+    }
 })

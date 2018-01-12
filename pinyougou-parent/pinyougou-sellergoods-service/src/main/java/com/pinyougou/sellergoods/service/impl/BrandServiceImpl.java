@@ -12,6 +12,7 @@ import entity.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BrandServiceImpl implements BrandService{
@@ -70,5 +71,10 @@ public class BrandServiceImpl implements BrandService{
         Page<TbBrand> brandPage= (Page<TbBrand>) tbBrandMapper.selectByExample(example);
 
         return new PageResult(brandPage.getTotal(),brandPage.getResult());
+    }
+
+    @Override
+    public List<Map> selectOptionList() {
+        return tbBrandMapper.selectOptionList();
     }
 }

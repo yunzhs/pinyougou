@@ -128,6 +128,9 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+    <select id="selectOptionList"  resultType="java.util.Map" >
+        select id,spec_name as text from tb_specification
+    </select>
   <update id="updateByExampleSelective" parameterType="map" >
     update tb_specification
     <set >
