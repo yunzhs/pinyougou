@@ -47,6 +47,5 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="pinyougou-pojo" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-core:4.3.13.RELEASE" level="project" />
   </component>
 </module>
