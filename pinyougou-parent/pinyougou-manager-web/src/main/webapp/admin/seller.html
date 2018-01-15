@@ -12,12 +12,22 @@
     <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../css/style.css">
-	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
-    
+
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    <!-- 分页 -->
+    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+    <script type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
+
+    <script type="text/javascript" src="../js/base_pagination.js"></script>
+    <script type="text/javascript" src="../js/service/sellerService.js"></script>
+    <script type="text/javascript" src="../js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../js/controller/sellerController.js"></script>
+
 </head>
 
-<body class="hold-transition skin-red sidebar-mini"  >
+<body class="hold-transition skin-red sidebar-mini"  ng-app="pinyougou" ng-controller="sellerController" ng-init="searchEntity={status:'1'}">
   <!-- .box-body -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -63,39 +73,25 @@
 			                          </tr>
 			                      </thead>
 			                      <tbody>
-			                          <tr>
-			                              <td><input  type="checkbox"></td>			                              
-				                          <td>1</td>
-									      <td>梦琪琪商贸有限公司</td>
-									      <td>梦琪琪</td>
-									      <td>李梦琪</td>
-									      <td>13402312232</td>
+			                          <tr ng-repeat="entity in list">
+			                              <td><input  type="checkbox"></td>
+                                          <td>{{entity.sellerId}}</td>
+                                          <td>{{entity.name}}</td>
+                                          <td>{{entity.nickName}}</td>
+                                          <td>{{entity.linkmanName}}</td>
+                                          <td>{{entity.telephone}}</td>
 		                                  <td>
-			                                  <span>未审核</span>	
+			                                  <span>已审核</span>
 										     
 		                                  </td>
 		                                  <td class="text-center">                                           
 		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#sellerModal" >详情</button>                                           
 		                                  </td>
 			                          </tr>
-									  <tr>
-			                              <td><input  type="checkbox"></td>			                              
-				                          <td>2</td>
-									      <td>黑瞎子苹果专卖店</td>
-									      <td>黑瞎子</td>
-									      <td>孙大鹏</td>
-									      <td>13622244111</td>
-		                                  <td>
-			                                  
-										      <span>审核通过</span>	
-										      
-		                                  </td>
-		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#sellerModal" >详情</button>                                           
-		                                  </td>
-			                          </tr>
+
 			                      </tbody>
 			                  </table>
+                            <tm-pagination conf="paginationConf"></tm-pagination>
 			                  <!--数据列表/-->                        
 							  
 							 
@@ -119,17 +115,17 @@
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			<h3 id="myModalLabel">商家详情</h3>
 		</div>
-		<div class="modal-body">							
-			
+		<div class="modal-body">
+
 			 <ul class="nav nav-tabs">
 			  <li class="active"><a href="#home" data-toggle="tab">基本信息</a></li>
 			  <li><a href="#linkman" data-toggle="tab">联系人</a></li>
 			  <li><a href="#certificate" data-toggle="tab">证件</a></li>
 			  <li><a href="#ceo" data-toggle="tab">法定代表人</a></li>
 			  <li><a href="#bank" data-toggle="tab">开户行</a></li>
-			</ul>							
-			
-			<!-- 选项卡开始 -->         
+			</ul>
+
+			<!-- 选项卡开始 -->
 		    <div id="myTabContent" class="tab-content">
 			    <div class="tab-pane active in" id="home">
 			      <br>
@@ -150,8 +146,8 @@
 			      		<td>公司详细地址</td>
 			      		<td>北京市西三旗建材城西路888号</td>
 			      	</tr>
-			      </table>			      
-      			</div>	
+			      </table>
+      			</div>
 			    <div class="tab-pane fade" id="linkman">
 			    	<br>
 					<table class="table table-bordered table-striped" >
@@ -187,7 +183,7 @@
 				      	<tr>
 				      		<td>组织机构代码证号</td>
 				      		<td>22320320302421</td>
-				      	</tr>				      	
+				      	</tr>
 			     	</table>
 			    </div>
 			    <div class="tab-pane fade" id="ceo">
@@ -200,7 +196,7 @@
 				      	<tr>
 				      		<td>法定代表人身份证号</td>
 				      		<td>211030198503223122</td>
-				      	</tr>					   			      	
+				      	</tr>
 			     	</table>
 			    </div>
 			    <div class="tab-pane fade" id="bank">
@@ -213,19 +209,19 @@
 				      	<tr>
 				      		<td>开户行支行</td>
 				      		<td>海淀支行</td>
-				      	</tr>		
+				      	</tr>
 				      	<tr>
 				      		<td>银行账号</td>
 				      		<td>999000111222</td>
-				      	</tr>			   			      	
-			     	</table>					
+				      	</tr>
+			     	</table>
 			    </div>
-  			    </div> 			
-           <!-- 选项卡结束 -->          
-			
-			
+  			    </div>
+           <!-- 选项卡结束 -->
+
+
 		</div>
-		<div class="modal-footer">						
+		<div class="modal-footer">
 			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">审核通过</button>
          	<button class="btn btn-danger"  data-dismiss="modal" aria-hidden="true">审核未通过</button>
             <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">关闭商家</button>

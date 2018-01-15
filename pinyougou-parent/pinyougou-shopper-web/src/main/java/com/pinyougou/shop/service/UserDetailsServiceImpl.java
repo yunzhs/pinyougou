@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.out.println("进入了UserDetailsServiceImpl");
+		//System.out.println("进入了UserDetailsServiceImpl");
 		//创建角色的列表
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		//构建角色对象
@@ -40,7 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		
 		//从数据库获取商家登陆信息
 		TbSeller seller = sellerService.findOne(username);
-        System.out.println(seller.getPassword());
+        //System.out.println(seller.getPassword());
         if(seller!=null){
 			if("1".equals(seller.getStatus())){
 				//参数1：用户名 参数2：密码 参数3：权限
