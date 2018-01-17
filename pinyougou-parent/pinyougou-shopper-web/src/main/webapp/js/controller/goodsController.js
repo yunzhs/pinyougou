@@ -1,5 +1,5 @@
  //控制层 
-app.controller('goodsController' ,function($scope,$controller   ,goodsService,uploadService){
+app.controller('goodsController' ,function($scope,$controller   ,goodsService,uploadService,itemCatService,typeTemplateService){
 	
 	$controller('baseController',{$scope:$scope});//继承
 
@@ -113,5 +113,99 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,up
     $scope.remove_image_entity=function(index){
         $scope.entity.goodsDesc.itemImages.splice(index,1);
     }
+
+    $scope.selectItemCat1List=function(){
+        itemCatService.findByParentId(0).success(
+            function(response){
+                $scope.itemCat1List=response;
+            }
+        );
+    }
+    $scope.$watch('entity.goods.category1Id', function(newValue, oldValue) {
+        //根据选择的值，查询二级分类
+        itemCatService.findByParentId(newValue).success(
+            function(response){
+                $scope.itemCat2List=response;
+                $scope.itemCat3List={};
+            }
+        );
+    });
+    $scope.$watch('entity.goods.category2Id', function(newValue, oldValue) {
+        //根据选择的值，查询二级分类
+        itemCatService.findByParentId(newValue).success(
+            function(response){
+                $scope.itemCat3List=response;
+            }
+        );
+    });
+
+    $scope.$watch('entity.goods.category3Id', function(newValue, oldValue) {
+        itemCatService.findOne(newValue).success(
+            function(response){
+                $scope.entity.goods.typeTemplateId=response.typeId; //更新模板ID
+            }
+        );
+    });
+
+    $scope.$watch('entity.goods.typeTemplateId', function(newValue, oldValue) {
+        typeTemplateService.findOne(newValue).success(
+            function(response){
+                $scope.typeTemplate=response;//获取类型模板
+                $scope.typeTemplate.brandIds= JSON.parse( $scope.typeTemplate.brandIds);//品牌列表
+                $scope.entity.goodsDesc.customAttributeItems=JSON.parse( $scope.typeTemplate.customAttributeItems);//扩展属性
+            }
+        );
+        typeTemplateService.findSpecList(newValue).success(
+            function(response){
+                $scope.specList=response;
+            }
+        );
+    });
+    $scope.entity={ goodsDesc:{itemImages:[],specificationItems:[]}  };
+
+    //勾选规格选项，操作DESC表中specificationItems（数组）的值
+    $scope.updateSpecAttribute=function($event,name,value){
+        var object=$scope.searchObjectByKey($scope.entity.goodsDesc.specificationItems,'attributeName',name);
+        if(object!=null){//有值向attributeValue放入value
+            if($event.target.checked){
+                object.attributeValue.push(value);
+            }else{//取消勾选
+                var index=object.attributeValue.indexOf(value);
+                object.attributeValue.splice(index,1);
+                if(object.attributeValue.length==0){//选项已经没有值了，移除整个规格对象
+                    var index2=$scope.entity.goodsDesc.specificationItems.indexOf(object);
+                    $scope.entity.goodsDesc.specificationItems.splice(index2,1);
+                }
+
+            }
+        }else{
+            $scope.entity.goodsDesc.specificationItems.push({"attributeName":name,"attributeValue":[value]})
+        }
+
+    }
+
+    $scope.createItemList=function(){
+        $scope.entity.itemList=[{spec:{},price:0,num:99999,status:'0',isDefault:'0' } ];//初始
+        var items=  $scope.entity.goodsDesc.specificationItems;
+        for(var i=0;i< items.length;i++){
+            $scope.entity.itemList = addColumn( $scope.entity.itemList,items[i].attributeName,items[i].attributeValue );
+        }
+    }
+
+
+//添加列值
+    addColumn=function(list,columnName,conlumnValues){
+        var newList=[];//新的集合
+        for(var i=0;i<list.length;i++){
+            var oldRow= list[i];
+            for(var j=0;j<conlumnValues.length;j++){
+                var newRow= JSON.parse( JSON.stringify( oldRow )  );//深克隆
+                newRow.spec[columnName]=conlumnValues[j];
+                newList.push(newRow);
+            }
+        }
+        return newList;
+    }
+
 
 });	
