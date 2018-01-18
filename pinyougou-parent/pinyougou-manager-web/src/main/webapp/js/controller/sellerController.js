@@ -72,6 +72,7 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
 			function(response){
 				$scope.list=response.rows;	
 				$scope.paginationConf.totalItems=response.total;//更新总记录数
+
 			}			
 		);
 	}
@@ -87,5 +88,8 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
             }
         )
     }
+    //商家审核状态
+    $scope.status=['待审核','已审核','审核未通过','关闭']
+    $scope.status1={}
     
 });	
