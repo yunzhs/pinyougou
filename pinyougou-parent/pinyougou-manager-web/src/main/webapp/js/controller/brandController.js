@@ -61,8 +61,9 @@ app.controller('brandController', function ($scope,$controller, $http, brandServ
 //                if ($scope.entity.id != null) {
 //                    methodName = "update.do"
 //                }
+
         var methodObject = null;
-        if ($scope.entity.id !== null) {
+        if ($scope.entity.id != null) {
             methodObject = brandService.update($scope.entity);
         }
         else {
