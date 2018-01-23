@@ -10,7 +10,7 @@
 
 	<dubbo:protocol name="dubbo" port="20884"/>
    <dubbo:application name="pinyougou-search-service"/>
-   <dubbo:registry address="zookeeper://192.168.217.132:2181" />
+   <dubbo:registry address="zookeeper://192.168.217.132:2181" timeout="500000"/>
    <dubbo:annotation package="com.pinyougou.search.service.impl"/>
    
 </beans>

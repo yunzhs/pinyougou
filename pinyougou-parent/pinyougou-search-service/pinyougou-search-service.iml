@@ -17,6 +17,12 @@
           <dependency>fileset2==pinyougou-dao</dependency>
           <file>file://$MODULE_DIR$/src/main/resources/spring/applicationContext-tx.xml</file>
         </fileset>
+        <fileset id="fileset2" name="ApplicationContext Solr" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/spring/applicationContext-solr.xml</file>
+        </fileset>
+        <fileset id="fileset3" name="ApplicationContext Service" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/spring/applicationContext-service.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>

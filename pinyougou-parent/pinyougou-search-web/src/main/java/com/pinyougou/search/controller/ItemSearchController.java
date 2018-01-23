@@ -15,10 +15,10 @@ public class ItemSearchController {
 
 	@Reference
 	private ItemSearchService itemSearchService;
-	
+
 	@RequestMapping("/search")
 	public Map<String, Object> search(@RequestBody Map<String, Object> searchMap) {
 		return itemSearchService.search(searchMap);
 	}
-	
+
 }
