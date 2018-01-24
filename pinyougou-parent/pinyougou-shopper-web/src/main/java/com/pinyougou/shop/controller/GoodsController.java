@@ -3,6 +3,7 @@ package com.pinyougou.shop.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.pojo.Goods;
 import com.pinyougou.pojo.TbGoods;
+import com.pinyougou.pojo.TbItem;
 import com.pinyougou.sellergoods.service.GoodsService;
 import entity.PageResult;
 import entity.Result;
@@ -24,7 +25,6 @@ public class GoodsController {
 
 	@Reference
 	private GoodsService goodsService;
-	
 	/**
 	 * 返回全部列表
 	 * @return

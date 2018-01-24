@@ -4,6 +4,7 @@ import java.util.List;
 import com.pinyougou.pojo.Goods;
 import com.pinyougou.pojo.TbGoods;
 
+import com.pinyougou.pojo.TbItem;
 import entity.PageResult;
 /**
  * 服务层接口
@@ -61,4 +62,5 @@ public interface GoodsService {
 	public PageResult findPage(TbGoods goods, int pageNum, int pageSize);
     public void updateStatus(Long []ids,String status);
     public void changeMarketable(Long []ids,String status);
+    public List<TbItem> findItemListByGoodsIdandStatus(Long[] goodsIds, String status );
 }
