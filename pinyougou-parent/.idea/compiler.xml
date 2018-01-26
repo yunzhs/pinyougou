@@ -12,6 +12,12 @@
         <module name="pinyougou-content-service1" />
         <module name="pinyougou-dao" />
         <module name="pinyougou-manager-web" />
+        <module name="pinyougou-page-interface" />
+        <module name="pinyougou-page-service" />
+        <module name="pinyougou-page-service2" />
+        <module name="pinyougou-page-service3" />
+        <module name="pinyougou-page-service5" />
+        <module name="pinyougou-page-web" />
         <module name="pinyougou-pojo" />
         <module name="pinyougou-portal-web" />
         <module name="pinyougou-search-interface" />
@@ -22,6 +28,7 @@
         <module name="pinyougou-shopper-web" />
         <module name="pinyougou-solr-util" />
         <module name="pinyougou1-content-service" />
+        <module name="pinyougoupageservice1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
@@ -32,6 +39,12 @@
       <module name="pinyougou-contenti-nterface" target="1.7" />
       <module name="pinyougou-dao" target="1.7" />
       <module name="pinyougou-manager-web" target="1.7" />
+      <module name="pinyougou-page-interface" target="1.7" />
+      <module name="pinyougou-page-service" target="1.7" />
+      <module name="pinyougou-page-service2" target="1.7" />
+      <module name="pinyougou-page-service3" target="1.7" />
+      <module name="pinyougou-page-service5" target="1.7" />
+      <module name="pinyougou-page-web" target="1.7" />
       <module name="pinyougou-parent" target="1.7" />
       <module name="pinyougou-pojo" target="1.7" />
       <module name="pinyougou-portal-web" target="1.7" />
@@ -45,6 +58,7 @@
       <module name="pinyougou-solr-util" target="1.7" />
       <module name="pinyougou1-content-service" target="1.7" />
       <module name="pinyougoudemo" target="1.7" />
+      <module name="pinyougoupageservice1" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
