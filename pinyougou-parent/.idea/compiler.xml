@@ -30,6 +30,7 @@
         <module name="pinyougou-user-interface" />
         <module name="pinyougou-user-service" />
         <module name="pinyougou-user-web" />
+        <module name="pinyougou-verifySms" />
         <module name="pinyougou1-content-service" />
         <module name="pinyougoupageservice1" />
       </profile>
@@ -62,6 +63,7 @@
       <module name="pinyougou-user-interface" target="1.7" />
       <module name="pinyougou-user-service" target="1.7" />
       <module name="pinyougou-user-web" target="1.7" />
+      <module name="pinyougou-verifySms" target="1.8" />
       <module name="pinyougou1-content-service" target="1.7" />
       <module name="pinyougoudemo" target="1.7" />
       <module name="pinyougoupageservice1" target="1.7" />

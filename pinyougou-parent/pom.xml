@@ -29,6 +29,7 @@
         <module>pinyougou-user-interface</module>
         <module>pinyougou-user-service</module>
         <module>pinyougou-user-web</module>
+        <module>pinyougou-verifySms</module>
     </modules>
 
     <properties>
