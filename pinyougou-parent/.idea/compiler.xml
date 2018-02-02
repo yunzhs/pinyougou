@@ -15,6 +15,8 @@
         <module name="pinyougou-content-service1" />
         <module name="pinyougou-dao" />
         <module name="pinyougou-manager-web" />
+        <module name="pinyougou-order-interface" />
+        <module name="pinyougou-order-service" />
         <module name="pinyougou-page-interface" />
         <module name="pinyougou-page-service" />
         <module name="pinyougou-page-service2" />
@@ -49,6 +51,8 @@
       <module name="pinyougou-contenti-nterface" target="1.7" />
       <module name="pinyougou-dao" target="1.7" />
       <module name="pinyougou-manager-web" target="1.7" />
+      <module name="pinyougou-order-interface" target="1.7" />
+      <module name="pinyougou-order-service" target="1.7" />
       <module name="pinyougou-page-interface" target="1.7" />
       <module name="pinyougou-page-service" target="1.7" />
       <module name="pinyougou-page-service2" target="1.7" />

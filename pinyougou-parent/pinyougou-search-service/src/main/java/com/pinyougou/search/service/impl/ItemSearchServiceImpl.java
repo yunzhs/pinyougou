@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -28,7 +29,7 @@ import org.springframework.data.solr.core.query.result.HighlightPage;
 
 import com.pinyougou.pojo.TbItem;
 import com.pinyougou.search.service.ItemSearchService;
-import org.springframework.stereotype.Service;
+
 
 @Service
 public class ItemSearchServiceImpl implements ItemSearchService {

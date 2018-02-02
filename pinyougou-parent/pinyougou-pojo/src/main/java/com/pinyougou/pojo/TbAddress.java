@@ -28,6 +28,8 @@ public class TbAddress implements Serializable{
 
     private String alias;
 
+    private String email;
+
     public Long getId() {
         return id;
     }
@@ -122,5 +124,13 @@ public class TbAddress implements Serializable{
 
     public void setAlias(String alias) {
         this.alias = alias == null ? null : alias.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 }
