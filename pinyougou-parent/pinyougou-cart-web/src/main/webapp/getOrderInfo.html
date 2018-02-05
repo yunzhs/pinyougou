@@ -20,7 +20,7 @@
 
 </head>
 
-<body ng-app="pinyougou" ng-controller="addressController" ng-init="findAddressList();findCartList()">
+<body ng-app="pinyougou" ng-controller="addressController" ng-init="findAddressList();findCartList();findAreas()">
 <!--head-->
 <div class="top">
     <div class="py-container">
@@ -113,12 +113,15 @@
                                         <div class="control-group">
                                             <label class="control-label">所在地区：</label>
                                             <div class="controls">
-                                                <select class="form-control" ng-model="entity.goods.category1Id"
-                                                        ng-options="item.id as item.name for item in itemCat1List"></select>
-                                                <select class="form-control" ng-model=""
-                                                        ng-options=""></select>
-                                                <select class="form-control" ng-model=""
-                                                        ng-options=""></select>
+                                                <select class="form-control" ng-model="entity.provinceId"
+                                                        ng-options="province.provinceid as province.province for province in provinces">
+                                                </select>
+                                                <select class="form-control" ng-model="entity.cityId"
+                                                        ng-options="city.cityid as city.city for city in cities">
+                                                </select>
+                                                <select class="form-control" ng-model="entity.townId"
+                                                        ng-options="area.areaid as area.area for area in areas">
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -130,24 +133,24 @@
                                         <div class="control-group">
                                             <label class="control-label">联系电话：</label>
                                             <div class="controls">
-                                                <input type="text" class="input-medium" ng-model="entity.mobile">
+                                                <input type="tel" class="input-medium" ng-model="entity.mobile">
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">邮箱：</label>
                                             <div class="controls">
-                                                <input type="text" class="input-medium" ng-model="entity.email">
+                                                <input type="email" class="input-medium" ng-model="entity.email">
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">地址别名：</label>
                                             <div class="controls">
-                                                <input type="text" class="input-medium">
+                                                <input type="text" class="input-medium" ng-model="entity.alias">
                                             </div>
                                             <div class="othername">
-                                                建议填写常用地址：<a href="#" class="sui-btn btn-default">家里</a>　<a href="#"
-                                                                                                           class="sui-btn btn-default">父母家</a>　<a
-                                                    href="#" class="sui-btn btn-default">公司</a>
+                                                建议填写常用地址：<a href="javascript:void(0);" class="sui-btn btn-default" ng-click="alias('家里')">家里</a>　<a href="javascript:void(0);"
+                                                                                                           class="sui-btn btn-default" ng-click="alias('父母家')">父母家</a>　<a
+                                                    href="javascript:void(0);" class="sui-btn btn-default" ng-click="alias('公司')">公司</a>
                                             </div>
                                         </div>
 
@@ -156,7 +159,7 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" data-ok="modal" class="sui-btn btn-primary btn-large">确定
+                                    <button type="button" data-ok="modal" class="sui-btn btn-primary btn-large" ng-click="save()">确定
                                     </button>
                                     <button type="button" data-dismiss="modal" class="sui-btn btn-default btn-large">
                                         取消

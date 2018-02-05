@@ -63,7 +63,7 @@ public interface AddressService {
 
     public List<TbAddress> findListByUserId(String userId );
     public List<TbProvinces> findAllProvinces();
-    public List<TbCities> findAllCities();
-    public List<TbAreas> findAllAreas();
+    public List<TbCities> findCities(String id);
+    public List<TbAreas> findAreas(String id);
 	
 }

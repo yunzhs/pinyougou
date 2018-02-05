@@ -146,13 +146,19 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<TbCities> findAllCities() {
-        return cities.selectByExample(null);
+    public List<TbCities> findCities(String id) {
+        TbCitiesExample example=new TbCitiesExample();
+        TbCitiesExample.Criteria criteria=example.createCriteria();
+        criteria.andProvinceidEqualTo(id);
+        return cities.selectByExample(example);
     }
 
     @Override
-    public List<TbAreas> findAllAreas() {
-        return areas.selectByExample(null);
+    public List<TbAreas> findAreas(String id) {
+        TbAreasExample example=new TbAreasExample();
+        TbAreasExample.Criteria criteria=example.createCriteria();
+        criteria.andCityidEqualTo(id);
+        return areas.selectByExample(example);
     }
 
 }

@@ -33,4 +33,15 @@ app.service('addressService',function($http){
     this.findAddressList=function(){
         return $http.get('../address/findListByLoginUser.do');
     }
+    //获取省市县信息
+    this.findProvinces=function () {
+        return $http.get('../address/findAreas.do')
+    }
+    this.findCities=function (id) {
+        return $http.get('../address/findCity.do?id='+id)
+    }
+    this.findAreas=function (id) {
+        return $http.get('../address/findArea.do?id='+id)
+    }
+
 });

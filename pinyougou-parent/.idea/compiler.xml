@@ -23,11 +23,16 @@
         <module name="pinyougou-page-service3" />
         <module name="pinyougou-page-service5" />
         <module name="pinyougou-page-web" />
+        <module name="pinyougou-pay-interface" />
+        <module name="pinyougou-pay-service" />
         <module name="pinyougou-pojo" />
         <module name="pinyougou-portal-web" />
         <module name="pinyougou-search-interface" />
         <module name="pinyougou-search-service" />
         <module name="pinyougou-search-web" />
+        <module name="pinyougou-seckill-interface" />
+        <module name="pinyougou-seckill-service" />
+        <module name="pinyougou-seckill-web" />
         <module name="pinyougou-sellergoods-interface" />
         <module name="pinyougou-sellergoods-service" />
         <module name="pinyougou-shopper-web" />
@@ -60,11 +65,16 @@
       <module name="pinyougou-page-service5" target="1.7" />
       <module name="pinyougou-page-web" target="1.7" />
       <module name="pinyougou-parent" target="1.7" />
+      <module name="pinyougou-pay-interface" target="1.7" />
+      <module name="pinyougou-pay-service" target="1.7" />
       <module name="pinyougou-pojo" target="1.7" />
       <module name="pinyougou-portal-web" target="1.7" />
       <module name="pinyougou-search-interface" target="1.7" />
       <module name="pinyougou-search-service" target="1.7" />
       <module name="pinyougou-search-web" target="1.7" />
+      <module name="pinyougou-seckill-interface" target="1.7" />
+      <module name="pinyougou-seckill-service" target="1.7" />
+      <module name="pinyougou-seckill-web" target="1.7" />
       <module name="pinyougou-sellergoods-interface" target="1.7" />
       <module name="pinyougou-sellergoods-service" target="1.7" />
       <module name="pinyougou-shop-web" target="1.7" />

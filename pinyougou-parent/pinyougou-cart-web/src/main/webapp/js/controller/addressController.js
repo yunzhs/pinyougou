@@ -2,7 +2,8 @@
 app.controller('addressController' ,function($scope,$controller  ,addressService){
 
     $controller('cartController',{$scope:$scope});//继承
-	
+
+    $scope.entity={};
     //读取列表数据绑定到表单中  
 	$scope.findAll=function(){
 		addressService.findAll().success(
@@ -43,7 +44,7 @@ app.controller('addressController' ,function($scope,$controller  ,addressService
 			function(response){
 				if(response.success){
 					//重新查询 
-		        	$scope.reloadList();//重新加载
+                    findAddressList();//重新加载
 				}else{
 					alert(response.message);
 				}
@@ -95,6 +96,35 @@ app.controller('addressController' ,function($scope,$controller  ,addressService
         $scope.address=address;
     }
 
+    //省市县联动
+    $scope.findAreas=function(){
+        addressService.findProvinces().success(
+            function (response) {
+                $scope.provinces=response.provinces;
+                $scope.cities={};
+                $scope.areas={};
+            }
+        )
+    }
+    $scope.$watch('entity.provinceId', function(newValue, oldValue) {
+        //根据选择的值，查询二级分类
+        addressService.findCities(newValue).success(
+            function(response){
+                $scope.cities=response;
+                $scope.areas={};
+            }
+        );
+    });
+    $scope.$watch('entity.cityId', function(newValue, oldValue) {
+        //根据选择的值，查询三级分类
+        addressService.findAreas(newValue).success(
+            function(response){
+                $scope.areas=response;
+            }
+        );
+    });
+
+
     //判断是否是当前选中的地址
     $scope.isSelectedAddress=function(address){
         if(address==$scope.address){
@@ -108,4 +138,8 @@ app.controller('addressController' ,function($scope,$controller  ,addressService
     $scope.selectPayType=function(type){
         $scope.order.paymentType= type;
     }
+    $scope.alias=function (alias) {
+        $scope.entity.alias=alias;
+    }
+
 });

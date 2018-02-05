@@ -35,6 +35,11 @@
         <module>pinyougou-cart-web</module>
         <module>pinyougou-order-interface</module>
         <module>pinyougou-order-service</module>
+        <module>pinyougou-pay-interface</module>
+        <module>pinyougou-pay-service</module>
+        <module>pinyougou-seckill-interface</module>
+        <module>pinyougou-seckill-service</module>
+        <module>pinyougou-seckill-web</module>
     </modules>
 
     <properties>
@@ -121,7 +126,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.9</version>
+                <version>4.12</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
