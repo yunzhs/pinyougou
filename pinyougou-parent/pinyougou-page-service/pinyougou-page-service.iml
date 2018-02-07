@@ -23,6 +23,9 @@
         <fileset id="fileset3" name="ApplicationContext Jms Consumer (2)" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/spring/applicationContext-jms-consumer.xml</file>
         </fileset>
+        <fileset id="fileset4" name="ApplicationContext Service" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/spring/applicationContext-service.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>

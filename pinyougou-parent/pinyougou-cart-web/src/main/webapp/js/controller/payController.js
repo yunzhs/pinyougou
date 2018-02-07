@@ -1,4 +1,4 @@
-app.controller('payController' ,function($scope ,payService){
+app.controller('payController' ,function($scope ,$location,payService){
     //本地生成二维码
     $scope.createNative=function(){
         payService.createNative().success(
